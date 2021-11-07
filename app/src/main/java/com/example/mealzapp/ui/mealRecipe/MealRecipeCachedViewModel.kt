@@ -9,8 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.model.*
-import com.example.model.api.MealsDBCachedWebService
-import com.example.model.api.MealsDBWebService
+import com.example.model.api.MealsCachedWebService
 import com.example.model.response.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,10 +23,14 @@ class MealRecipesCachedViewModelFactory(private val mealId: String, private val 
 class MealRecipeCachedViewModel (mealId: String, val app: Application) : AndroidViewModel(app) {
 
     private val repository: MealRecipesCachedRepository = MealRecipesCachedRepository.getInstance(
-        MealsDBCachedWebService(app.applicationContext)
+        MealsCachedWebService(app.applicationContext)
     )
-    private val repositoryFavorites : FavoritesMealsRepository = FavoritesMealsRepository.getInstance()
+    //private val repositoryFavorites : FavoritesMealsRepository = FavoritesMealsRepository.getInstance()
     private val repositoryIngredientsCart: IngredientsCartRepository = IngredientsCartRepository.getInstance()
+
+    private val repositoryDBFavorites: FavoritesMealsDBRepository = FavoritesMealsDBRepository.getInstance(
+        MealsCachedWebService(app.applicationContext)
+    )
 
 
     private val mealsRecipeState: MutableState<List<MealRecipeResponse>> = mutableStateOf(emptyList())
@@ -42,12 +45,12 @@ class MealRecipeCachedViewModel (mealId: String, val app: Application) : Android
 
 
     init {
-        val scope = viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
 
             try {
                 mealsRecipeState.value = getMealRecipe(mealId)
                 titleScreen.value = "${mealsRecipeState.value[0].strMeal} recipe"
-                mealsRecipeArrangedState.value = convertToRecipesArranged(mealsRecipeState.value)
+                mealsRecipeArrangedState.value = convertToRecipeArranged(mealsRecipeState.value)
 
                 recipeSteps.value = mealsRecipeArrangedState.value.strInstructions?.split('\n') ?: listOf("")
                 meal.value = MealResponse(
@@ -55,9 +58,9 @@ class MealRecipeCachedViewModel (mealId: String, val app: Application) : Android
                     mealsRecipeArrangedState.value.strMeal?:"",
                     mealsRecipeArrangedState.value.strMealThumb?:"")
 
-                isFavorite.value = repositoryFavorites.contains(meal.value)
+                isFavorite.value = repositoryDBFavorites.contains(meal.value)
             } catch (e: Exception) {
-                Log.e("Repository Meals", "Exception thrown by repository: ${e.toString()}")
+                Log.e("Repository Meals", "Exception thrown by repository: $e")
             }
 
         }
@@ -69,8 +72,8 @@ class MealRecipeCachedViewModel (mealId: String, val app: Application) : Android
     }
 
     fun togle() {
-        repositoryFavorites.togle(meal.value)
-        isFavorite.value = repositoryFavorites.contains((meal.value))
+        repositoryDBFavorites.togle(meal.value)
+        isFavorite.value = repositoryDBFavorites.contains(meal.value)
     }
 
     fun addIngredientToCart(mealName: String, name: String, mesure: String ) {

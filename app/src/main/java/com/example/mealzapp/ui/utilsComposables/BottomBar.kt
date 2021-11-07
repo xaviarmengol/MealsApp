@@ -25,9 +25,7 @@ fun BottomBar  (
     icon2: ImageVector? = null,
     onClick2: () -> Unit = {}
 ) {
-    BottomAppBar(
-        //contentPadding = PaddingValues(all = 8.dp)
-    ) {
+    BottomAppBar {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,

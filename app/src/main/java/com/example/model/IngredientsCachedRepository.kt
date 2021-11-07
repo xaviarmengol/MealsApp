@@ -4,12 +4,12 @@ import android.content.Context
 import com.example.mealzapp.ui.utils.SingletonHolder
 import com.example.mealzapp.ui.utils.readFromFile
 import com.example.mealzapp.ui.utils.writeToFile
-import com.example.model.api.MealsDBCachedWebService
+import com.example.model.api.MealsCachedWebService
 import com.example.model.response.IngredientResponse
 import com.example.model.response.IngredientsResponse
 import com.google.gson.Gson
 
-class IngredientsCachedRepository (private val webService : MealsDBCachedWebService) {
+class IngredientsCachedRepository (private val webService : MealsCachedWebService) {
 
     private var cachedIngredients: List<IngredientResponse> = emptyList()
     private var ingredients : IngredientsResponse = IngredientsResponse()
@@ -23,7 +23,7 @@ class IngredientsCachedRepository (private val webService : MealsDBCachedWebServ
     }
 
     fun getCachedIngredientByName(name : String) : IngredientResponse? {
-        return cachedIngredients.firstOrNull() {
+        return cachedIngredients.firstOrNull {
                 ingredient -> ingredient.name == name
         }
     }
@@ -50,5 +50,5 @@ class IngredientsCachedRepository (private val webService : MealsDBCachedWebServ
 
 
     // Convert into singleton
-    companion object : SingletonHolder<IngredientsCachedRepository, MealsDBCachedWebService>(::IngredientsCachedRepository)
+    companion object : SingletonHolder<IngredientsCachedRepository, MealsCachedWebService>(::IngredientsCachedRepository)
 }

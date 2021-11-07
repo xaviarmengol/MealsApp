@@ -24,9 +24,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.mealzapp.ui.ingredientsCart.IngredientsCartViewModel
 import com.example.mealzapp.ui.utils.AppBar
 import com.example.mealzapp.ui.utils.BarElementBig
+import com.example.mealzapp.ui.utilsComposables.PlaceHolders
+import com.example.mealzapp.ui.utilsComposables.PlusSign
 
 
 @ExperimentalComposeUiApi

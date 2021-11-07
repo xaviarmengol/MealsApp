@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.model.IngredientsCachedRepository
-import com.example.model.api.MealsDBCachedWebService
+import com.example.model.api.MealsCachedWebService
 import com.example.model.response.IngredientResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ class IngredientsCachedViewModelFactory(private val application: Application) :
 class IngredientsCachedViewModel (val app: Application) : AndroidViewModel(app) {
 
     val repository: IngredientsCachedRepository =
-        IngredientsCachedRepository.getInstance(MealsDBCachedWebService(app.applicationContext))
+        IngredientsCachedRepository.getInstance(MealsCachedWebService(app.applicationContext))
 
     val ingredientsState: MutableState<List<IngredientResponse>> = mutableStateOf(emptyList())
     val updatedFromNetwork: MutableState<Boolean> = mutableStateOf(false)
@@ -36,7 +36,7 @@ class IngredientsCachedViewModel (val app: Application) : AndroidViewModel(app) 
                 ingredientsState.value = getIngredients()
                 updatedFromNetwork.value = true
             } catch (e: Exception) {
-                Log.e("RepositoryIngredients", "Exception thrown by repository: ${e.toString()}")
+                Log.e("RepositoryIngredients", "Exception thrown by repository: $e")
             }
         }
     }

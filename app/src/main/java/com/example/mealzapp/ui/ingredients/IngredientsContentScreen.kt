@@ -45,8 +45,7 @@ fun IngredientsContentScreen(onClickIngredient: (String) -> Unit, filterValue: S
     
     LazyColumn(contentPadding = PaddingValues(16.dp)) {
         items(ingredients) { ingredient ->
-            if ((ingredient.name?.contains(filterValue, ignoreCase = true)
-                    ?: false) or (filterValue == "")
+            if ((ingredient.name?.contains(filterValue, ignoreCase = true) == true) or (filterValue == "")
             ) {
                 BarElement(
                     name = ingredient.name ?: "",

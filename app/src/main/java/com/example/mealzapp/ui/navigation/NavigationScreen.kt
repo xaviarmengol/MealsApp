@@ -14,11 +14,9 @@ import androidx.navigation.navArgument
 import com.example.mealzapp.ui.ingredientsCart.IngredientsCartScreen
 import com.example.mealzapp.ui.mealRecipe.MealRecipeScreen
 import com.example.mealzapp.ui.mealWithCategory.MealsWithCategoryScreen
-import com.example.mealzapp.ui.mealsFavorites.MealsFavoritesScreen
 import com.example.mealzapp.ui.mealsWithIngredient.MealsWithIngredientsScreen
 import com.example.mealzapp.ui.menus.MenusScreen
 import com.example.mealzapp.ui.tabFilter.TabFilterScreen
-import com.example.model.response.MealResponse
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 
@@ -111,16 +109,6 @@ fun NavigationScreen(app: Application) {
                 },
                 app = app
             )
-        }
-
-
-        composable(route = "MEALS_FAVORITES") {
-            MealsFavoritesScreen(
-                onClickMeal =
-                { mealId -> navController.navigate("MEAL_RECIPE/${mealId}") },
-                onClickNav = { navController.navigateUp() }
-            )
-
         }
 
         composable(route = "INGREDIENTS_CART") {

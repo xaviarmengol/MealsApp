@@ -9,11 +9,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.model.FavoritesMealsRepository
 import com.example.model.MealsCategoriesCachedRepository
-import com.example.model.api.MealsDBCachedWebService
+import com.example.model.api.MealsCachedWebService
 import com.example.model.response.CategoryResponse
-import com.example.model.response.MealResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -27,7 +25,7 @@ class MealsCategoriesCachedViewModelFactory(private val application: Application
 class MealsCategoriesCachedViewModel (val app: Application) : AndroidViewModel(app) {
 
     private val repository: MealsCategoriesCachedRepository = MealsCategoriesCachedRepository.getInstance(
-        MealsDBCachedWebService(app.applicationContext)
+        MealsCachedWebService(app.applicationContext)
     )
 
 
@@ -42,7 +40,7 @@ class MealsCategoriesCachedViewModel (val app: Application) : AndroidViewModel(a
                 categoriesState.value = getCategories()
                 updatedFromNetwork.value = true
             } catch (e: Exception) {
-                Log.e("Repository Categories", "Exception thrown by repository: ${e.toString()}")
+                Log.e("Repository Categories", "Exception thrown by repository: $e")
             }
         }
     }

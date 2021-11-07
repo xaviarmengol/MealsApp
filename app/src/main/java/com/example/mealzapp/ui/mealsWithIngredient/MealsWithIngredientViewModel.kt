@@ -7,11 +7,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.model.FavoritesMealsDBRepository
 import com.example.model.FavoritesMealsRepository
-import com.example.model.MealsCategoriesRepository
 import com.example.model.MealsWithIngredientRepository
-import com.example.model.api.MealsDBWebService
-import com.example.model.response.CategoryResponse
+import com.example.model.api.MealsCachedWebService
 import com.example.model.response.MealResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,9 +24,13 @@ class MealsWithIngredientsViewModelFactory(private val ingredientName: String, p
 class MealsWithIngredientViewModel (ingredientName : String, app: Application) : AndroidViewModel(app) {
 
     private val repository: MealsWithIngredientRepository = MealsWithIngredientRepository.getInstance(
-        MealsDBWebService()
+        MealsCachedWebService(app.applicationContext)
     )
-    private val repositoryFavorite : FavoritesMealsRepository = FavoritesMealsRepository.getInstance()
+    //private val repositoryFavorite : FavoritesMealsRepository = FavoritesMealsRepository.getInstance()
+
+    private val repositoryDBFavorites: FavoritesMealsDBRepository = FavoritesMealsDBRepository.getInstance(
+        MealsCachedWebService(app.applicationContext)
+    )
 
     val mealsWithIngredientState: MutableState<List<MealResponse?>> = mutableStateOf(emptyList())
 
@@ -43,10 +46,10 @@ class MealsWithIngredientViewModel (ingredientName : String, app: Application) :
     }
 
     fun togleToFavorites(meal: MealResponse) {
-        repositoryFavorite.togle(meal)
+        repositoryDBFavorites.togle(meal)
     }
 
     fun isFavorite(meal: MealResponse) : Boolean {
-        return repositoryFavorite.contains(meal)
+        return repositoryDBFavorites.contains(meal)
     }
 }

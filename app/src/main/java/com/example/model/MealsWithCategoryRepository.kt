@@ -1,11 +1,11 @@
 package com.example.model
 
 import com.example.mealzapp.ui.utils.SingletonHolder
-import com.example.model.api.MealsDBWebService
+import com.example.model.api.MealsCachedWebService
 import com.example.model.response.MealResponse
 import com.example.model.response.MealsResponse
 
-class MealsWithCategoryRepository (private val webService : MealsDBWebService = MealsDBWebService()) {
+class MealsWithCategoryRepository (private val webService : MealsCachedWebService) {
 
     private var cachedMealsWithCategory: List<MealResponse?> = emptyList()
 
@@ -16,10 +16,10 @@ class MealsWithCategoryRepository (private val webService : MealsDBWebService = 
     }
 
     fun getCachedMealById(CategoryId : String) : MealResponse? {
-        return cachedMealsWithCategory.firstOrNull() {
+        return cachedMealsWithCategory.firstOrNull {
                 meal -> meal?.id == CategoryId
         }
     }
     // Convert into singleton
-    companion object : SingletonHolder<MealsWithCategoryRepository, MealsDBWebService>(::MealsWithCategoryRepository)
+    companion object : SingletonHolder<MealsWithCategoryRepository, MealsCachedWebService>(::MealsWithCategoryRepository)
 }

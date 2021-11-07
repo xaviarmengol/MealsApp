@@ -147,7 +147,8 @@ fun TabFilterScreen(onClickElementList: List<(String) -> Unit>, onClickNav: () -
                     )
                     2 -> MealsFavoritesContentScreen(
                         onClickMeal = onClickElementList[2],
-                        filterValue = findValue.value.text
+                        filterValue = findValue.value.text,
+                        app = app
                     )
                 }
 

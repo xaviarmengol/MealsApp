@@ -1,7 +1,5 @@
 package com.example.model
 
-import android.util.Log
-import com.example.mealzapp.ui.utils.SingletonHolder
 import com.example.mealzapp.ui.utils.SingletonHolderWithNoParameters
 import com.example.model.response.MealResponse
 

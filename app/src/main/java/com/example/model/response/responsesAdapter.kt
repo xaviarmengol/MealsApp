@@ -24,7 +24,7 @@ data class MealRecipeArrangedResponse constructor(
 )
 
 
-fun convertToRecipesArranged(recipes : List<MealRecipeResponse>): MealRecipeArrangedResponse {
+fun convertToRecipeArranged(recipes : List<MealRecipeResponse>): MealRecipeArrangedResponse {
 
     val ingredientsRecipe : List<IngredientNameMeasure> =
         List<IngredientNameMeasure> (20) { IngredientNameMeasure("", "") }

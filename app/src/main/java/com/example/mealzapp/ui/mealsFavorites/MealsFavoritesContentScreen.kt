@@ -1,5 +1,6 @@
 package com.example.mealzapp.ui.mealsFavorites
 
+import android.app.Application
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,11 +17,12 @@ import com.example.mealzapp.ui.utils.BarElement
 @Composable
 fun MealsFavoritesContentScreen(
     onClickMeal: (String) -> Unit,
-    filterValue: String = ""
+    filterValue: String = "",
+    app: Application
 ) {
     // attach the viewmodel to the composable (Live as long as the composable)
 
-    val viewModel: MealsFavoritesViewModel = viewModel()
+    val viewModel: MealsFavoritesViewModel = viewModel(factory = MealsFavoritesViewModelFactory(app))
     val meals = viewModel.mealsFavoritesState.value
 
     LazyColumn(
@@ -30,7 +32,7 @@ fun MealsFavoritesContentScreen(
         ) {
         items(meals) { meal ->
 
-            if ((meal.name?.contains(filterValue, ignoreCase = true)?: false) or (filterValue == "")
+            if ((meal.name?.contains(filterValue, ignoreCase = true) == true) or (filterValue == "")
             ) {
 
                 BarElement(

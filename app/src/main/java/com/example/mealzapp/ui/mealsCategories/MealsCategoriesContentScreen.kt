@@ -45,8 +45,7 @@ fun MealsCategoriesContentScreen(onClickCategory: (String) -> Unit, filterValue:
 
     LazyColumn(contentPadding = PaddingValues(16.dp)) {
         items(categories) { category ->
-            if ((category.name?.contains(filterValue, ignoreCase = true)
-                    ?: false) or (filterValue == "")
+            if (category.name.contains(filterValue, ignoreCase = true) or (filterValue == "")
             ) {
                 BarElement(
                     name = category.name,

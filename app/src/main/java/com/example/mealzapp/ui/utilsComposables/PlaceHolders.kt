@@ -1,28 +1,22 @@
-package com.example.mealzapp.ui.menus
+package com.example.mealzapp.ui.utilsComposables
 
-
-import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.mealzapp.ui.utils.swipeToDelete
 
 @Composable
 fun PlaceHolders(contents: List<@Composable () -> Unit>) {
 
     val totalBox = contents.size
-
-    val offsetX = remember { listOf(Animatable(0f),Animatable(0f),Animatable(0f) )}
 
     Column(
         modifier = Modifier
@@ -37,9 +31,9 @@ fun PlaceHolders(contents: List<@Composable () -> Unit>) {
 
             Card(
                 modifier = Modifier
-                    .fillMaxWidth(0.90f)
+                    .fillMaxWidth(1f)
                     .fillMaxHeight(1f / divider.toFloat())
-                    .padding(8.dp)
+                    .padding(0.dp)
                     .border(1.dp,color=MaterialTheme.colors.onSurface)
                     //.swipeToDelete(offsetX[numBox], 1f){}
                     //.offset(x = offsetX[0].value.dp)
@@ -87,5 +81,5 @@ fun PlusSign(onClick : () -> Unit) {
 @Preview
 @Composable
 fun PreviewMyRecipes() {
-    PlaceHolders(listOf({ Text("aaaa") }, {PlusSign({})}, {PlusSign({})}, { Text("bbbb") }))
+    PlaceHolders(listOf({ Text("aaaa") }, { PlusSign({}) }, { PlusSign({}) }, { Text("bbbb") }))
 }

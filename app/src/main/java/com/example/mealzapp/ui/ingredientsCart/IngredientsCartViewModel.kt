@@ -8,7 +8,7 @@ import com.example.model.response.IngredientMealImageNameMeasure
 
 
 
-class IngredientsCartViewModel () : ViewModel() {
+class IngredientsCartViewModel : ViewModel() {
 
     private val repository: IngredientsCartRepository = IngredientsCartRepository.getInstance()
 

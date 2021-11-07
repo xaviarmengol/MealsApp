@@ -1,10 +1,10 @@
 package com.example.model
 
 import com.example.mealzapp.ui.utils.SingletonHolder
-import com.example.model.api.MealsDBCachedWebService
+import com.example.model.api.MealsCachedWebService
 import com.example.model.response.*
 
-class MealRecipesCachedRepository (private val webService : MealsDBCachedWebService){
+class MealRecipesCachedRepository (private val webService : MealsCachedWebService){
 
     private var cachedRecipes: List<MealRecipeResponse> = emptyList()
 
@@ -19,6 +19,6 @@ class MealRecipesCachedRepository (private val webService : MealsDBCachedWebServ
     }
 
     // Convert into singleton
-    companion object : SingletonHolder<MealRecipesCachedRepository, MealsDBCachedWebService>(::MealRecipesCachedRepository)
+    companion object : SingletonHolder<MealRecipesCachedRepository, MealsCachedWebService>(::MealRecipesCachedRepository)
 
 }
